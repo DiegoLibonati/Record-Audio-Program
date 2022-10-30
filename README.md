@@ -36,3 +36,7 @@ I made a program in python with tkinter as the user interface that allows the us
 `https://diegolibonati.github.io/DiegoLibonatiWeb/#/projects?q=Record%20audio%20program`
 
 ## Video
+
+
+https://user-images.githubusercontent.com/99032604/198900280-02b26523-e7b3-4c0a-91f5-c325b49270ea.mp4
+
