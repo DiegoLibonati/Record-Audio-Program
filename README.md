@@ -33,7 +33,7 @@ I made a program in python with tkinter as the user interface that allows the us
 
 ## Portfolio Link
 
-`https://diegolibonati.github.io/DiegoLibonatiWeb/#/projects?q=Record%20audio%20program`
+`https://diegolibonati.github.io/DiegoLibonatiWeb/#/projects?q=Record%20Audio%20Program`
 
 ## Video
 
