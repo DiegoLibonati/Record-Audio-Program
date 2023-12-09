@@ -21,19 +21,9 @@ I made a program in python with tkinter as the user interface that allows the us
 2. pyaudio
 3. wave
 
-## Galery
-
-![record-audio-program](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Python/Imagenes/audiorecorder-0.jpg)
-
-![record-audio-program](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Python/Imagenes/audiorecorder-1.jpg)
-
-![record-audio-program](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Python/Imagenes/audiorecorder-2.jpg)
-
-![record-audio-program](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Python/Imagenes/audiorecorder-3.jpg)
-
 ## Portfolio Link
 
-`https://diegolibonati.github.io/DiegoLibonatiWeb/#/projects?q=Record%20Audio%20Program`
+[`https://www.diegolibonati.com.ar/#/project/84`](https://www.diegolibonati.com.ar/#/project/84)
 
 ## Video
 
