@@ -5,7 +5,7 @@
 1. Clone the repository
 2. Join to the correct path of the clone
 3. Install requirements.txt
-4. Use `python record_audio_program.py` to execute program
+4. Use `python ./src/app.py` to execute program
 
 ## Description
 

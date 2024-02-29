@@ -1,6 +1,7 @@
-from tkinter import *
 import pyaudio
 import wave
+
+from tkinter import *
 
 # Tkinter
 root = Tk()
@@ -24,8 +25,8 @@ py_audio = None
 stream = None
 frames = []
 
-mic_image = PhotoImage(file="./mic.png")
-mic_image_on = PhotoImage(file="./micon.png")
+mic_image = PhotoImage(file="./src/assets/mic.png")
+mic_image_on = PhotoImage(file="./src/assets/micon.png")
  
 label_image = Label(root, image=mic_image, border=0)
 label_image.place(x=200, y = 100, anchor="center")
@@ -41,7 +42,7 @@ crono_label = Label(root, width=25, bg="#09f", fg="#fff", font=("Roboto 12"))
 crono_label.place(x = 200, y = 350, anchor="center")
 crono_label.config(text="Inicia")
 
-def record():
+def record() -> None:
 
     global interval_crono, py_audio, stream, frames
 
@@ -65,7 +66,7 @@ def record():
     save_data()
         
 
-def crono_init():
+def crono_init() -> None:
 
     global sec, mins, interval_crono
 
@@ -88,7 +89,7 @@ def crono_init():
     interval_crono = root.after(1000, crono_init)
 
 
-def crono_finish():
+def crono_finish() -> None:
 
     global interval_crono, py_audio, stream, frames, mins, sec
 
