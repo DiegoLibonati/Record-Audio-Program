@@ -1,4 +1,4 @@
-# Record-Audio-Program
+# Record Audio Program
 
 ## Getting Started
 
@@ -23,7 +23,7 @@ I made a program in python with tkinter as the user interface that allows the us
 
 ## Portfolio Link
 
-[`https://www.diegolibonati.com.ar/#/project/84`](https://www.diegolibonati.com.ar/#/project/84)
+[`https://www.diegolibonati.com.ar/#/project/Record-Audio-Program`](https://www.diegolibonati.com.ar/#/project/Record-Audio-Program)
 
 ## Video
 
