@@ -1,23 +1,24 @@
-import time
-import os
 import logging
+import os
+import time
+from test.constants import CHANNELS, CHUNK, FS, SAMPLE_FORMAT
 
 import pyaudio
-
 import pytest
 
 from src.models.Audio import Audio
 
-from test.constants import CHUNK
-from test.constants import SAMPLE_FORMAT
-from test.constants import CHANNELS
-from test.constants import FS
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
-
-AUDIO_NAMES = ["test_add_frame_to_frames", "test_run_timer", "test_start_record", "test_stop_record"]
+AUDIO_NAMES = [
+    "test_add_frame_to_frames",
+    "test_run_timer",
+    "test_start_record",
+    "test_stop_record",
+]
 
 
 def test_init_audio(audio: Audio) -> None:
@@ -29,7 +30,7 @@ def test_init_audio(audio: Audio) -> None:
     assert audio.seconds == 0
     assert audio.minutes == 0
 
-    assert audio.stream == None
+    assert audio.stream is None
     assert isinstance(audio.py_audio, pyaudio.PyAudio)
     assert not audio.frames
     assert isinstance(audio.frames, list)
@@ -38,6 +39,7 @@ def test_init_audio(audio: Audio) -> None:
     assert not audio.end_audio
     assert not audio.recording_thread
     assert not audio.timer_thread
+
 
 def test_start_record(audio: Audio) -> None:
     audio.start_record()
@@ -49,6 +51,7 @@ def test_start_record(audio: Audio) -> None:
 
     audio.stop_record(filename="test_start_record")
 
+
 def test_add_frame_to_frames(audio: Audio) -> None:
     audio.start_record()
     time.sleep(1)
@@ -58,8 +61,9 @@ def test_add_frame_to_frames(audio: Audio) -> None:
     for frame in audio.frames:
         assert frame
         assert isinstance(frame, bytes)
-    
+
     audio.stop_record(filename="test_add_frame_to_frames")
+
 
 def test_stop_record(audio: Audio) -> None:
     audio_name = "test_stop_record"
@@ -73,7 +77,7 @@ def test_stop_record(audio: Audio) -> None:
     # Reseted
     assert audio.seconds == 0
     assert audio.minutes == 0
-    assert audio.stream == None
+    assert audio.stream is None
     assert isinstance(audio.py_audio, pyaudio.PyAudio)
     assert not audio.frames
     assert isinstance(audio.frames, list)
@@ -82,17 +86,20 @@ def test_stop_record(audio: Audio) -> None:
     assert not audio.recording_thread
     assert not audio.timer_thread
 
+
 def test_stop_record_not_filename(audio: Audio) -> None:
     with pytest.raises(ValueError) as exc_info:
         audio.stop_record(filename="  ")
 
     assert str(exc_info.value) == "You must enter a valid name to save the file."
 
+
 def test_stop_record_not_started(audio: Audio) -> None:
     with pytest.raises(RuntimeError) as exc_info:
         audio.stop_record(filename="test_stop_record_not_started")
 
     assert str(exc_info.value) == "You must start an audio to be able to stop it."
+
 
 def test_run_timer(audio: Audio) -> None:
     audio.start_record()
@@ -102,6 +109,7 @@ def test_run_timer(audio: Audio) -> None:
     assert audio.minutes == 0
 
     audio.stop_record(filename="test_run_timer")
+
 
 def test_reset_state(audio: Audio) -> None:
     audio._reset_state()
@@ -114,7 +122,7 @@ def test_reset_state(audio: Audio) -> None:
     assert audio.seconds == 0
     assert audio.minutes == 0
 
-    assert audio.stream == None
+    assert audio.stream is None
     assert isinstance(audio.py_audio, pyaudio.PyAudio)
     assert not audio.frames
     assert isinstance(audio.frames, list)
@@ -128,8 +136,8 @@ def test_reset_state(audio: Audio) -> None:
     for audio_name in AUDIO_NAMES:
         audio_folder = os.getcwd()
         audio_name = f"{audio_name}.wav"
-        
+
         file = os.path.join(audio_folder, audio_name)
         os.remove(path=file)
 
-        assert not audio_name in os.listdir(os.getcwd())
+        assert audio_name not in os.listdir(os.getcwd())
