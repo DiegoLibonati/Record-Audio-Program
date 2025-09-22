@@ -77,11 +77,11 @@ class InterfaceApp:
         self.crono_label.config(text="Starts")
 
     def _perform_start_record(self) -> None:
-        # filename = self.filename.get()
+        filename = self.filename.get()
 
-        # if not filename:
-        #     self.crono_label["text"] = "You must enter a valid filename."
-        #     return
+        if not filename:
+            self.crono_label["text"] = "You must enter a valid filename."
+            return
 
         self.stop_button["state"] = NORMAL
         self.start_button["state"] = DISABLED

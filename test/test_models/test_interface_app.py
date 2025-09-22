@@ -38,6 +38,8 @@ def test_initial_config_tk_app(interface_app: InterfaceApp) -> None:
 
 
 def test_call_perform_start_record(interface_app: InterfaceApp) -> None:
+    filename = "test_call_perform_start_record"
+    interface_app.filename.set(filename)
     interface_app._perform_start_record()
 
     assert interface_app.stop_button["state"] == NORMAL
@@ -49,13 +51,14 @@ def test_call_perform_start_record(interface_app: InterfaceApp) -> None:
 
 
 def test_call_perform_stop_record(interface_app: InterfaceApp) -> None:
+    filename = "test_call_perform_stop_record"
+    interface_app.filename.set(filename)
+
     interface_app._perform_start_record()
 
     assert interface_app.stop_button["state"] == NORMAL
     assert interface_app.start_button["state"] == DISABLED
 
-    filename = "test_call_perform_stop_record"
-    interface_app.filename.set(filename)
     interface_app._perform_stop_record()
 
     assert interface_app.stop_button["state"] == DISABLED
@@ -67,6 +70,9 @@ def test_call_perform_stop_record(interface_app: InterfaceApp) -> None:
 
 
 def test_set_timer(interface_app: InterfaceApp) -> None:
+    filename = "test_set_timer"
+    interface_app.filename.set(filename)
+
     interface_app._perform_start_record()
 
     assert interface_app.crono_label["text"] == "00:00"
