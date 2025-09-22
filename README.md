@@ -35,6 +35,7 @@ I made a program in python with tkinter as the user interface that allows the us
 
 ```
 PyAudio==0.2.12
+pre-commit==4.3.0
 ```
 
 #### Requirements.test.txt
