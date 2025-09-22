@@ -3,8 +3,7 @@ from tkinter import Tk
 
 from pytest import fixture
 
-from src.models.Audio import Audio
-from src.models.InterfaceApp import InterfaceApp
+from src.models import Audio, InterfaceApp
 
 
 @fixture

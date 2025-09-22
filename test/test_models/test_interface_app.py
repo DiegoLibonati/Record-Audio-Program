@@ -2,8 +2,7 @@ import logging
 import os
 from tkinter import DISABLED, NORMAL
 
-from src.models.Audio import Audio
-from src.models.InterfaceApp import InterfaceApp
+from src.models import Audio, InterfaceApp
 from src.utils.constants import PRIMARY
 
 logging.basicConfig(
