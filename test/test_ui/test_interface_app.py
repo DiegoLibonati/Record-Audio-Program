@@ -4,7 +4,7 @@ from tkinter import DISABLED, NORMAL
 
 from src.models.audio import Audio
 from src.ui.interface_app import InterfaceApp
-from src.utils.constants import PRIMARY
+from src.utils.styles import PRIMARY
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"

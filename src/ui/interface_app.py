@@ -12,7 +12,7 @@ from tkinter import (
 
 from src.core.paths import PATH_MIC, PATH_MIC_ON
 from src.models.audio import Audio
-from src.utils.constants import PRIMARY, ROBOTO_12, ROBOTO_15, SECONDARY, WHITE
+from src.utils.styles import PRIMARY, ROBOTO_12, ROBOTO_15, SECONDARY, WHITE
 
 
 class InterfaceApp:
