@@ -2,7 +2,8 @@ from tkinter import Tk
 
 from pyaudio import paInt16
 
-from src.models import Audio, InterfaceApp
+from src.models.audio import Audio
+from src.ui.interface_app import InterfaceApp
 
 
 def main():

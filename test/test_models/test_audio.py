@@ -6,7 +6,7 @@ from test.constants import CHANNELS, CHUNK, FS, SAMPLE_FORMAT
 import pyaudio
 import pytest
 
-from src.models import Audio
+from src.models.audio import Audio
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"

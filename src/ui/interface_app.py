@@ -10,7 +10,8 @@ from tkinter import (
     Tk,
 )
 
-from src.models import Audio
+from src.core.paths import PATH_MIC, PATH_MIC_ON
+from src.models.audio import Audio
 from src.utils.constants import PRIMARY, ROBOTO_12, ROBOTO_15, SECONDARY, WHITE
 
 
@@ -22,8 +23,8 @@ class InterfaceApp:
         self.root.resizable(False, False)
         self.root.config(bg=bg)
 
-        self.img_record_off = PhotoImage(file="./src/assets/mic.png", master=self.root)
-        self.img_record_on = PhotoImage(file="./src/assets/micon.png", master=self.root)
+        self.img_record_off = PhotoImage(file=PATH_MIC, master=self.root)
+        self.img_record_on = PhotoImage(file=PATH_MIC_ON, master=self.root)
 
         self.__audio = audio
 
