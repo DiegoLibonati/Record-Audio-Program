@@ -74,7 +74,6 @@ def test_stop_record(audio: Audio) -> None:
 
     assert f"{audio_name}.wav" in os.listdir(os.getcwd())
 
-    # Reseted
     assert audio.seconds == 0
     assert audio.minutes == 0
     assert audio.stream is None
@@ -132,7 +131,6 @@ def test_reset_state(audio: Audio) -> None:
     assert not audio.recording_thread
     assert not audio.timer_thread
 
-    # Remove all audios
     for audio_name in AUDIO_NAMES:
         audio_folder = os.getcwd()
         audio_name = f"{audio_name}.wav"
