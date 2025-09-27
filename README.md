@@ -27,7 +27,7 @@ I made a program in python with tkinter as the user interface that allows the us
 
 ## Technologies used
 
-1. Python
+1. Python >= 3.11
 
 ## Libraries used
 
