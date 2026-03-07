@@ -8,7 +8,7 @@ if [ -f "venv/bin/activate" ]; then
 elif [ -f "venv/Scripts/activate" ]; then
     source venv/Scripts/activate
 else
-    echo "No se encontró el entorno virtual. Crealo con: python -m venv venv"
+    echo "The virtual environment was not found. Create it with: python -m venv venv"
     exit 1
 fi
 

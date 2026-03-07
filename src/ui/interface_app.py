@@ -1,116 +1,67 @@
-from tkinter import (
-    CENTER,
-    DISABLED,
-    NORMAL,
-    Button,
-    Entry,
-    Label,
-    PhotoImage,
-    StringVar,
-    Tk,
-)
+from tkinter import PhotoImage, Tk
 
-from src.core.paths import PATH_MIC, PATH_MIC_ON
-from src.models.audio import Audio
-from src.utils.styles import PRIMARY, ROBOTO_12, ROBOTO_15, SECONDARY, WHITE
+from src.configs.default_config import DefaultConfig
+from src.constants.paths import PATH_MIC, PATH_MIC_ON
+from src.models.audio_model import AudioModel
+from src.ui.styles import Styles
+from src.ui.views.main_view import MainView
 
 
 class InterfaceApp:
-    def __init__(self, root: Tk, audio: Audio, bg: str = PRIMARY) -> None:
-        self.root = root
-        self.root.title("Record Audio APP")
-        self.root.geometry("400x400")
-        self.root.resizable(False, False)
-        self.root.config(bg=bg)
+    def __init__(self, root: Tk, audio: AudioModel, config: DefaultConfig, styles: Styles = Styles()) -> None:
+        self._styles = styles
+        self._config = config
+        self._root = root
+        self._root.title("Record Program")
+        self._root.geometry("400x400")
+        self._root.resizable(False, False)
+        self._root.config(background=self._styles.PRIMARY_COLOR)
 
-        self.img_record_off = PhotoImage(file=PATH_MIC, master=self.root)
-        self.img_record_on = PhotoImage(file=PATH_MIC_ON, master=self.root)
+        self._img_record_off = PhotoImage(file=PATH_MIC, master=self._root)
+        self._img_record_on = PhotoImage(file=PATH_MIC_ON, master=self._root)
 
         self.__audio = audio
 
-        self._create_widgets()
+        self._main_view = MainView(
+            root=self._root,
+            styles=self._styles,
+            img_record_off=self._img_record_off,
+            img_record_on=self._img_record_on,
+            on_start=self._perform_start_record,
+            on_stop=self._perform_stop_record,
+        )
+        self._main_view.grid(row=0, column=0, sticky="nsew")
+        self._root.columnconfigure(0, weight=1)
+        self._root.rowconfigure(0, weight=1)
 
     @property
-    def audio(self) -> Audio:
+    def audio(self) -> AudioModel:
         return self.__audio
 
-    def _create_widgets(self) -> None:
-        self.filename = StringVar()
-
-        self.label_image = Label(self.root, image=self.img_record_off, border=0)
-        self.label_image.place(x=200, y=100, anchor=CENTER)
-
-        self.entry_name_audio = Entry(
-            width=15, font=(ROBOTO_15), textvariable=self.filename
-        )
-        self.entry_name_audio.place(x=200, y=200, anchor=CENTER)
-
-        self.start_button = Button(
-            self.root,
-            width=15,
-            text="Start Record",
-            font=(ROBOTO_15),
-            bg=SECONDARY,
-            fg=WHITE,
-            border=0,
-            command=lambda: self._perform_start_record(),
-            state=NORMAL,
-        )
-        self.start_button.place(x=200, y=250, anchor=CENTER)
-
-        self.stop_button = Button(
-            self.root,
-            width=15,
-            text="Stop Record",
-            font=(ROBOTO_15),
-            bg=SECONDARY,
-            fg=WHITE,
-            border=0,
-            state=DISABLED,
-            command=lambda: self._perform_stop_record(),
-        )
-        self.stop_button.place(x=200, y=300, anchor=CENTER)
-
-        self.crono_label = Label(
-            self.root, width=25, bg=PRIMARY, fg=WHITE, font=(ROBOTO_12)
-        )
-        self.crono_label.place(x=200, y=350, anchor=CENTER)
-        self.crono_label.config(text="Starts")
-
     def _perform_start_record(self) -> None:
-        filename = self.filename.get()
+        filename = self._main_view.get_filename()
 
         if not filename:
-            self.crono_label["text"] = "You must enter a valid filename."
+            self._main_view.set_status("You must enter a valid filename.")
             return
 
-        self.stop_button["state"] = NORMAL
-        self.start_button["state"] = DISABLED
-        self.label_image["image"] = self.img_record_on
-
+        self._main_view.set_recording_state(recording=True)
         self.audio.start_record()
         self._set_timer()
 
     def _perform_stop_record(self) -> None:
-        filename = self.filename.get()
+        filename = self._main_view.get_filename()
 
-        self.stop_button["state"] = DISABLED
-        self.start_button["state"] = NORMAL
-        self.label_image["image"] = self.img_record_off
-        self.crono_label[
-            "text"
-        ] = f"Finished in: {self._parse_timer(seconds=self.audio.seconds, minutes=self.audio.minutes)}. {filename} saved."
+        self._main_view.set_recording_state(recording=False)
+        self._main_view.set_status(f"Finished in: {self._parse_timer(seconds=self.audio.seconds, minutes=self.audio.minutes)}. {filename} saved.")
 
         self.audio.stop_record(filename=filename)
-
-        self.filename.set("Insert a new one!.")
+        self._main_view.set_filename("Insert a new one!.")
 
     def _set_timer(self) -> None:
-        if not self.audio.end_audio and self.stop_button["state"] == NORMAL:
-            self.crono_label["text"] = self._parse_timer(
-                seconds=self.audio.seconds, minutes=self.audio.minutes
-            )
-            self.root.after(1000, self._set_timer)
+        if not self.audio.end_audio and self._main_view.is_recording():
+            self._main_view.set_status(self._parse_timer(seconds=self.audio.seconds, minutes=self.audio.minutes))
+            self._root.after(1000, self._set_timer)
 
     @staticmethod
     def _parse_timer(seconds: int, minutes: int) -> str:

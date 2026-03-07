@@ -5,7 +5,7 @@ import wave
 import pyaudio
 
 
-class Audio:
+class AudioModel:
     def __init__(self, chunk: int, sample_format: int, channels: int, fs: int) -> None:
         self.__chunk: int = chunk
         self.__sample_format: int = sample_format
@@ -173,7 +173,7 @@ class Audio:
 
 
 if __name__ == "__main__":
-    audio = Audio(chunk=1024, sample_format=16, channels=1, fs=44100)
+    audio = AudioModel(chunk=1024, sample_format=16, channels=1, fs=44100)
 
     count = 0
     audio.start_record()
@@ -183,5 +183,3 @@ if __name__ == "__main__":
         time.sleep(1)
         if count == 10:
             audio.stop_record("item")
-
-    print(audio)

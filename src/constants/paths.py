@@ -1,4 +1,4 @@
-from src.core.config import resource_path
+from src.utils.helpers import resource_path
 
 ROOT = "./src"
 ROOT_ASSETS = f"{ROOT}/assets"
