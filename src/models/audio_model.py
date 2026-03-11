@@ -4,6 +4,8 @@ import wave
 
 import pyaudio
 
+from src.constants.messages import MESSAGE_ERROR_AUDIO_NOT_STARTED, MESSAGE_ERROR_NOT_VALID_FILENAME_SAVE
+
 
 class AudioModel:
     def __init__(self, chunk: int, sample_format: int, channels: int, fs: int) -> None:
@@ -94,13 +96,13 @@ class AudioModel:
     def stop_record(self, filename: str) -> None:
         if not filename.strip():
             self._reset_state()
-            raise ValueError("You must enter a valid name to save the file.")
+            raise ValueError(MESSAGE_ERROR_NOT_VALID_FILENAME_SAVE)
 
         self.__end_audio = True
 
         if not self.recording_thread or not self.timer_thread:
             self._reset_state()
-            raise RuntimeError("You must start an audio to be able to stop it.")
+            raise RuntimeError(MESSAGE_ERROR_AUDIO_NOT_STARTED)
 
         self.recording_thread.join()
         self.timer_thread.join()
