@@ -57,7 +57,11 @@ class InterfaceApp:
         self._main_view.set_recording_state(recording=False)
         self._main_view.set_status(f"Finished in: {self._parse_timer(seconds=self.audio.seconds, minutes=self.audio.minutes)}. {filename} saved.")
 
-        self.audio.stop_record(filename=filename)
+        ok = self.audio.stop_record(filename=filename)
+
+        if not ok:
+            return
+
         self._main_view.set_filename("Insert a new one!.")
 
     def _set_timer(self) -> None:

@@ -94,18 +94,18 @@ class AudioModel:
             data = self.stream.read(self.chunk)
             self.__frames.append(data)
 
-    def stop_record(self, filename: str) -> None:
+    def stop_record(self, filename: str) -> bool:
         if not filename.strip():
             self._reset_state()
             ValidationDialogError(message=MESSAGE_NOT_VALID_FILENAME_SAVE).dialog()
-            return
+            return False
 
         self.__end_audio = True
 
         if not self.recording_thread or not self.timer_thread:
             self._reset_state()
             InternalDialogError(message=MESSAGE_ERROR_AUDIO_NOT_STARTED).dialog()
-            return
+            return False
 
         self.recording_thread.join()
         self.timer_thread.join()
@@ -122,6 +122,8 @@ class AudioModel:
         wave_write.close()
 
         self._reset_state()
+
+        return True
 
     def _run_timer(self) -> None:
         next_time = time.time() + 1
