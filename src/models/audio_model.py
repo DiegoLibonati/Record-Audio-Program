@@ -4,7 +4,8 @@ import wave
 
 import pyaudio
 
-from src.constants.messages import MESSAGE_ERROR_AUDIO_NOT_STARTED, MESSAGE_ERROR_NOT_VALID_FILENAME_SAVE
+from src.constants.messages import MESSAGE_ERROR_AUDIO_NOT_STARTED, MESSAGE_NOT_VALID_FILENAME_SAVE
+from src.utils.dialogs import InternalDialogError, ValidationDialogError
 
 
 class AudioModel:
@@ -96,13 +97,15 @@ class AudioModel:
     def stop_record(self, filename: str) -> None:
         if not filename.strip():
             self._reset_state()
-            raise ValueError(MESSAGE_ERROR_NOT_VALID_FILENAME_SAVE)
+            ValidationDialogError(message=MESSAGE_NOT_VALID_FILENAME_SAVE).dialog()
+            return
 
         self.__end_audio = True
 
         if not self.recording_thread or not self.timer_thread:
             self._reset_state()
-            raise RuntimeError(MESSAGE_ERROR_AUDIO_NOT_STARTED)
+            InternalDialogError(message=MESSAGE_ERROR_AUDIO_NOT_STARTED).dialog()
+            return
 
         self.recording_thread.join()
         self.timer_thread.join()

@@ -1,11 +1,12 @@
 from tkinter import PhotoImage, Tk
 
 from src.configs.default_config import DefaultConfig
-from src.constants.messages import MESSAGE_ERROR_NOT_VALID_FILENAME
+from src.constants.messages import MESSAGE_NOT_VALID_FILENAME
 from src.constants.paths import PATH_MIC, PATH_MIC_ON
 from src.models.audio_model import AudioModel
 from src.ui.styles import Styles
 from src.ui.views.main_view import MainView
+from src.utils.dialogs import ValidationDialogError
 
 
 class InterfaceApp:
@@ -43,7 +44,7 @@ class InterfaceApp:
         filename = self._main_view.get_filename()
 
         if not filename:
-            self._main_view.set_status(MESSAGE_ERROR_NOT_VALID_FILENAME)
+            ValidationDialogError(message=MESSAGE_NOT_VALID_FILENAME).dialog()
             return
 
         self._main_view.set_recording_state(recording=True)
