@@ -10,6 +10,7 @@ from src.configs.production_config import ProductionConfig
 from src.configs.testing_config import TestingConfig
 from src.models.audio_model import AudioModel
 from src.ui.interface_app import InterfaceApp
+from src.utils.error_handler import error_handler
 
 logger = setup_logger("record-audio-program - app.py")
 
@@ -26,6 +27,8 @@ def main(environment: str = "production") -> None:
     environment = os.getenv("ENVIRONMENT", environment)
 
     root = Tk()
+    root.report_callback_exception = error_handler
+
     config_class = CONFIG_MAP.get(environment, ProductionConfig)
     config = config_class()
     audio = AudioModel(chunk=1024, sample_format=paInt16, channels=1, fs=44100)

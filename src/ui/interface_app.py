@@ -44,8 +44,7 @@ class InterfaceApp:
         filename = self._main_view.get_filename()
 
         if not filename:
-            ValidationDialogError(message=MESSAGE_NOT_VALID_FILENAME).dialog()
-            return
+            raise ValidationDialogError(message=MESSAGE_NOT_VALID_FILENAME)
 
         self._main_view.set_recording_state(recording=True)
         self.audio.start_record()

@@ -13,8 +13,9 @@ The main goal is to explore and demonstrate best practices, patterns, and techno
 3. Execute in Windows: `venv\Scripts\activate`
 4. Execute in Linux/Mac: `source venv/bin/activate`
 5. Execute: `pip install -r requirements.txt`
-6. Execute: `pip install -r requirements.test.txt`
-7. Use `python app.py` or `python -m src` to execute the program
+6. Execute: `pip install -r requirements.dev.txt`
+7. Execute: `pip install -r requirements.test.txt`
+8. Use `python app.py` or `python -m src` to execute the program
 
 ### Pre-Commit for Development
 
@@ -37,7 +38,12 @@ I made a program in python with tkinter as the user interface that allows the us
 ```
 PyAudio==0.2.12
 python-dotenv==1.0.1
+```
+
+#### Requirements.dev.txt
+```
 pre-commit==4.3.0
+pip-audit==2.7.3
 ```
 
 #### Requirements.test.txt
@@ -95,6 +101,15 @@ Alternatively, you can run the helper script: `build.bat`
 4. Create the executable: `pyinstaller app.spec`
 
 Alternatively, you can run the helper script: `./build.sh`
+
+## Security Audit
+
+You can check your dependencies for known vulnerabilities using **pip-audit**.
+
+1. Go to the repository folder
+2. Activate your virtual environment
+3. Execute: `pip install -r requirements.dev.txt`
+4. Execute: `pip-audit -r requirements.txt`
 
 ## Env Keys
 

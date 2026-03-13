@@ -97,15 +97,13 @@ class AudioModel:
     def stop_record(self, filename: str) -> bool:
         if not filename.strip():
             self._reset_state()
-            ValidationDialogError(message=MESSAGE_NOT_VALID_FILENAME_SAVE).dialog()
-            return False
+            raise ValidationDialogError(message=MESSAGE_NOT_VALID_FILENAME_SAVE)
 
         self.__end_audio = True
 
         if not self.recording_thread or not self.timer_thread:
             self._reset_state()
-            InternalDialogError(message=MESSAGE_ERROR_AUDIO_NOT_STARTED).dialog()
-            return False
+            raise InternalDialogError(message=MESSAGE_ERROR_AUDIO_NOT_STARTED)
 
         self.recording_thread.join()
         self.timer_thread.join()
